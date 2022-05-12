@@ -16,9 +16,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactManagerComponent } from './contact-manager/contact-manager.component';
 import { NotesComponent } from './notes/notes.component';
+import { NewContactComponent } from './new-contact/new-contact.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, ContactManagerComponent, NotesComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    ContactManagerComponent,
+    NotesComponent,
+    NewContactComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,6 +41,7 @@ import { NotesComponent } from './notes/notes.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

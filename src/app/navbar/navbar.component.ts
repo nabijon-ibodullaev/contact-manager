@@ -7,6 +7,13 @@ import { Users } from '../Models/users';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { NewContactComponent } from '../new-contact/new-contact.component';
+import {
+  MatSnackBar,
+  MatSnackBarRef,
+  SimpleSnackBar,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-navbar',
@@ -33,6 +40,9 @@ import { Router } from '@angular/router';
       .contacts {
         background: #3f51b5 !important;
       }
+      .example-spacer {
+        flex: 1 1 auto;
+      }
     `,
   ],
 })
@@ -51,7 +61,9 @@ export class NavbarComponent implements OnInit {
     private UsersService: UsersService,
     iconRegisty: MatIconRegistry,
     sanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) {
     iconRegisty.addSvgIconSet(
       sanitizer.bypassSecurityTrustResourceUrl('assets/avatars.svg')
@@ -65,6 +77,30 @@ export class NavbarComponent implements OnInit {
     this.users.subscribe((data) => {
       if (data.length > 0)
         this.router.navigate(['/contact-manager', data[0].id]);
+    });
+  }
+
+  openAddPersonDialog() {
+    let dialogRef = this.dialog.open(NewContactComponent, {
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.openSnackBar('Contact added', 'Navigate')
+          .onAction()
+          .subscribe(() => {
+            this.router.navigate(['/contact-manager', result.id]);
+          });
+      }
+    });
+  }
+  openSnackBar(
+    message: string,
+    action: string
+  ): MatSnackBarRef<SimpleSnackBar> {
+    return this._snackBar.open(message, action, {
+      duration: 5000,
     });
   }
 }

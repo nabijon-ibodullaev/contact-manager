@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container my-theme">
   <mat-sidenav
     #drawer
     class="sidenav"
@@ -30,6 +30,20 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span class="">Contact Manager</span>
+      <span class="example-spacer"></span>
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openAddPersonDialog()">
+          <mat-icon>person_add</mat-icon>
+          <span>New User</span>
+        </button>
+      </mat-menu>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

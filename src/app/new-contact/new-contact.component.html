@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Add new Contact</h2>
+<mat-dialog-content>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Avatar</mat-label>
+    <mat-select [(ngModel)]="user.avatar">
+      <mat-select-trigger>
+        <mat-icon svgIcon="{{ user.avatar }}">{{ user.avatar }}</mat-icon>
+      </mat-select-trigger>
+      <mat-option *ngFor="let avatar of avatars" [value]="avatar">
+        <mat-icon svgIcon="{{ avatar }}">{{ avatar }}</mat-icon>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="user.name" required />
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="user.birthDate" />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Bio</mat-label>
+    <textarea matInput [(ngModel)]="user.bio"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-stroked-button color="primary" (click)="save()">
+    <mat-icon>save</mat-icon>
+  </button>
+  <button mat-stroked-button color="accent" (click)="dismiss()">
+    <mat-icon>cancel</mat-icon>
+  </button>
+</mat-dialog-actions>

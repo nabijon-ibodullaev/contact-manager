@@ -25,6 +25,17 @@ export class UsersService {
   userbyid(id: number) {
     return this.dataStore.users.find((x) => x.id == id);
   }
+
+  addUser(user: Users): Promise<Users> {
+    return new Promise((resolver, reject) => {
+      user.id = this.dataStore.users.length + 1;
+      this.dataStore.users.push(user);
+      this._users.next(Object.assign({}, this.dataStore).users);
+
+      resolver(user);
+    });
+  }
+
   getAllUsers() {
     this.http.get<Users[]>(this._UsersUrl).subscribe(
       (data) => {
